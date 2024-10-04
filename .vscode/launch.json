@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/app.ts",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "runtimeExecutable": "npx",          // Use npx to run ts-node-dev
+      "runtimeArgs": [
+        "ts-node-dev",                     // Specify ts-node-dev as the command to run
+        "--respawn",                       // Automatically restart the server on changes
+        "--transpile-only"                 // Faster compilation
+      ],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "sourceMaps": true
+    }
+  ]
+}

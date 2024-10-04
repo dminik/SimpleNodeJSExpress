@@ -18,7 +18,6 @@ app.get('/api/calculate', (req, res) => {
     switch (operation) {
         case 'add':
             result = number1 + number2;
-            console.log(`${number1} + ${number2} = ${result}`);
             break;
         case 'subtract':
             result = number1 - number2;
@@ -37,7 +36,10 @@ app.get('/api/calculate', (req, res) => {
     }
     res.send({ result });
 });
-app.listen(port, () => {
-    console.log(`Started Calculator API running at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(port, () => {
+        console.log(`Started Calculator API running at http://localhost:${port}`);
+    });
+}
+exports.default = app;
 //# sourceMappingURL=app.js.map

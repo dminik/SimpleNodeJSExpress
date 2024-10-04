@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/app.ts",
+      "program": "${workspaceFolder}/src/app.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",
       "runtimeExecutable": "npx",          // Use npx to run ts-node-dev
       "runtimeArgs": [

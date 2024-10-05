@@ -24,6 +24,7 @@ const validateInput = (req: any): { number1: number, number2: number, operation:
 
 app.get('/api/calculate', (req: any, res: any): any => {
   const inputData = validateInput(req);
+  
   if (!inputData) {
     return res.status(400).send('Invalid input');
   }

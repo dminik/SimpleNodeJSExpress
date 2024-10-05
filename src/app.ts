@@ -1,27 +1,35 @@
+// src/app.ts
 import express from 'express';
 import { calculate } from './calculator';  // Import logic from the calculator module
 
 const app = express();
 const port = 3000;
 
-app.get('/api/calculate', (req: any, res: any): any => {
+const validateInput = (req: any): { number1: number, number2: number, operation: string } | null => {
   const { num1, num2, operation } = req.query;
 
-  // Input validation and parsing
   if (!num1 || !num2 || !operation) {
-    return res.status(400).send('Missing parameters');
+    return null; // or throw an error
   }
 
   const number1 = parseFloat(num1 as string);
   const number2 = parseFloat(num2 as string);
 
   if (isNaN(number1) || isNaN(number2)) {
-    return res.status(400).send('Invalid number inputs');
+    return null; // or throw an error
+  }
+
+  return { number1, number2, operation };
+};
+
+app.get('/api/calculate', (req: any, res: any): any => {
+  const inputData = validateInput(req);
+  if (!inputData) {
+    return res.status(400).send('Invalid input');
   }
 
   try {
-    // Call the separated logic for calculation
-    const result = calculate(number1, number2, operation as string);
+    const result = calculate(inputData.number1, inputData.number2, inputData.operation);
     res.send({ result });
   } catch (error) {
     if (error instanceof Error) {
@@ -31,6 +39,7 @@ app.get('/api/calculate', (req: any, res: any): any => {
     }
   }
 });
+
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {

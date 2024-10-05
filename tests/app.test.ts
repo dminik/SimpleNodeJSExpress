@@ -17,12 +17,12 @@ describe('Calculator API', () => {
   test('should return error for missing parameters', async () => {
     const res = await request(app).get('/api/calculate?num1=10');
     expect(res.statusCode).toEqual(400);
-    expect(res.text).toBe('Missing parameters');
+    expect(res.text).toBe('Invalid input');
   });
 
   test('should return error for invalid number inputs', async () => {
     const res = await request(app).get('/api/calculate?num1=abc&num2=10&operation=add');
     expect(res.statusCode).toEqual(400);
-    expect(res.text).toBe('Invalid number inputs');
+    expect(res.text).toBe('Invalid input');
   });
 });

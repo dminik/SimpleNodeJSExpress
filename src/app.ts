@@ -24,7 +24,7 @@ const validateInput = (req: any): { number1: number, number2: number, operation:
 
 app.get('/api/calculate', (req: any, res: any): any => {
   const inputData = validateInput(req);
-  
+
   if (!inputData) {
     return res.status(400).send('Invalid input');
   }
@@ -45,6 +45,7 @@ app.get('/api/calculate', (req: any, res: any): any => {
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
     console.log(`Started Calculator API running at http://localhost:${port}`);
+    console.log(`GET Example: http://localhost:3000/api/calculate?num1=10&num2=7&operation=add`);
   });
 }
 
